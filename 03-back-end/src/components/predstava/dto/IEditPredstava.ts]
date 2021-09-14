@@ -1,0 +1,53 @@
+import * as Ajv from "ajv";
+
+const ajv = Ajv();
+
+interface IEditLinija {
+    name: string;
+	summary: string;
+    image_path: string;
+    duration: number;
+	actors: string;
+}
+
+
+const IEditLinijaSchemaValidator = ajv.compile({
+    type: "object",
+    properties: {
+        name: {
+            type: "string",
+            minLength: 3,
+            maxLength: 50,
+        },
+        summary: {
+            type: "string",
+            minLength: 5,
+            maxLength: 255,
+        },
+        image_path: {
+            type: "string",
+            minLength: 5,
+            maxLength: 255,
+        },
+		duration: {
+            type: "integer",
+            minimum: 1,
+        },
+		actors: {
+            type: "string",
+            minLength: 5,
+            maxLength: 255,
+        },
+    },
+    required: [
+        "name",
+        "summary",
+		"image_path",
+		"duration",
+		"actors",
+    ],
+    additionalProperties: false,
+});
+
+export { IEditLinijaSchemaValidator };
+export { IEditLinija };
